@@ -100,12 +100,15 @@ int calcular_puntaje(char canal, char alimento, int piso_elegido, int grito){
 .Pre: Recibe el resultado de la formula de personalidad, el cual tiene que estar entre el rango de 5 a 63
 .Post: Imprime por pantalla el resultado del test de personalidad
 */
-void determinar_personalidad(int puntaje){
+void determinar_personalidad(int puntaje, char *personaje){
     if ((puntaje >= PUNTAJE_MINIMO_POLAR) && (puntaje <= PUNTAJE_MAXIMO_POLAR)){
+        *personaje = POLAR;
         printf("Sos callado y muy cerrado con tus emociones, pero eso no te quita lo maduro y valiente, tu unico miedo son los pepinos, sos un loquito de la limpieza y tenes varias habilidades que poca gente conoce por lo que tu personalidad es la de - Polar (%c) -\n", POLAR);
     } else if ((puntaje >= PUNTAJE_MINIMO_PANDA) && (puntaje <= PUNTAJE_MAXIMO_PANDA)){
+        *personaje = PANDA;
         printf("El SuperTest cocluyo que tu personalidad corresponde a la de - Panda (%c) -, sos muy sensible y tierno, no soltas el celular en todo el dia y ademas sos medio otaku\n", PANDA);
     } else if((puntaje >= PUNTAJE_MINIMO_PARDO) && (puntaje <= PUNTAJE_MAXIMO_PARDO)){
+        *personaje = PARDO;
         printf("Segun los resultados de nuestro SuperTest se ha determinado que tu personalidad coincide con la de - Pardo (%c) - eres el mas hiperactivo, ruidoso y sociable de la familia, amas el cine y lo mas importante eres el lider del trio\n", PARDO);
     }    
 }
@@ -162,6 +165,7 @@ int main(){
     char canal_tv, alimento;
     int piso_elegido, grito;
     int puntaje_total;
+    char personaje;
     
     saludar();
 
@@ -171,7 +175,7 @@ int main(){
     elegir_nivel_de_grito(&grito);
 
     puntaje_total = calcular_puntaje(canal_tv, alimento, piso_elegido, grito);
-    determinar_personalidad(puntaje_total);
+    determinar_personalidad(puntaje_total, &personaje);
 
 
     return 0;
