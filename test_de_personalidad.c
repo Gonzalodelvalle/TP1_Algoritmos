@@ -56,45 +56,48 @@ void validar_numero(int* numero, int minimo, int maximo){
 }
 
 /*
-.Pre: La funcion recibe las opciones elegidas por el usuario
+.Pre: Recibe un canal valido ingresado por el usuario entre ANIME ('A'), MUSICA POP ('M'), LIMPIEZA ('L')
+.Post: Devuelve el puntaje que le corresponde al canal elegido 
+*/
+int puntaje_por_canal(char canal){
+    if (canal == ANIME){
+        return PUNTAJE_ANIME;
+    } else if (canal == MUSICA_POP){
+        return PUNTAJE_MUSICA_POP;
+    } else {
+        return PUNTAJE_LIMPIEZA;
+    }
+}
+
+/*
+.Pre: Recibe un alimento valido ingresado por el usuario entre BAMBU ('B'), PESCADO ('P'), FOCAS ('F') 
+.Post: Devuelve el puntaje que le corresponde al alimento elegido
+*/
+int puntaje_por_alimento(char alimento){
+    if (alimento == BAMBU){
+        return PUNTAJE_BAMBU;
+    } else if (alimento == PESCADO){
+        return PUNTAJE_PESCADO;
+    } else {
+        return PUNTAJE_FOCAS;
+    } 
+}
+
+/*
+.Pre: La funcion recibe las opciones elegidas por el usuario 
 .Post: Devuelve un entero con el resultado de la formula de personalidad
 */ 
 int calcular_puntaje(char canal, char alimento, int piso_elegido, int grito){
-    int puntaje_total;
-    switch (canal){
-    case ANIME:
-        if (alimento == BAMBU){
-            puntaje_total = (PUNTAJE_BAMBU * PUNTAJE_ANIME) + piso_elegido + grito;
-        }else if (alimento == PESCADO){
-            puntaje_total = (PUNTAJE_PESCADO * PUNTAJE_ANIME) + piso_elegido + grito;
-        }else{
-            puntaje_total = (PUNTAJE_FOCAS * PUNTAJE_ANIME) + piso_elegido + grito;
-        }        
-        break;
-    case MUSICA_POP:
-        if (alimento == BAMBU){
-            puntaje_total = (PUNTAJE_BAMBU * PUNTAJE_MUSICA_POP) + piso_elegido + grito;
-        }else if (alimento == PESCADO){
-            puntaje_total = (PUNTAJE_PESCADO * PUNTAJE_MUSICA_POP) + piso_elegido + grito;
-        }else{
-            puntaje_total = (PUNTAJE_FOCAS * PUNTAJE_MUSICA_POP) + piso_elegido + grito;
-        }
-        break;
-    case LIMPIEZA:
-        if (alimento == BAMBU){
-            puntaje_total = (PUNTAJE_BAMBU * PUNTAJE_LIMPIEZA) + piso_elegido + grito;
-        }else if (alimento == PESCADO){
-            puntaje_total = (PUNTAJE_PESCADO * PUNTAJE_LIMPIEZA) + piso_elegido + grito;
-        }else{
-            puntaje_total = (PUNTAJE_FOCAS * PUNTAJE_LIMPIEZA) + piso_elegido + grito;
-        }
-        break;
-    }
+    int puntaje_canal = puntaje_por_canal(canal);
+    int puntaje_alimento = puntaje_por_alimento(alimento);
+    
+    int puntaje_total = (puntaje_alimento * puntaje_canal) + piso_elegido + grito;
+    
     return puntaje_total;
 }
 
 /*
-.Pre: Recibe un entero con el resultado de la formula de personalidad
+.Pre: Recibe el resultado de la formula de personalidad, el cual tiene que estar entre el rango de 5 a 63
 .Post: Imprime por pantalla el resultado del test de personalidad
 */
 void determinar_personalidad(int puntaje){
@@ -108,8 +111,8 @@ void determinar_personalidad(int puntaje){
 }
 
 /*
-.Pre:-
-.Post: Guarda en la variable "canal" la opcion elegida por el usuario
+.Pre: -
+.Post: Guarda en la variable "canal" la opcion elegida por el usuario la cual debe ser un caracter valido entre 'A', 'M', 'L'
 */
 void elegir_canal(char* canal){
     printf("Vas a ver televisión un rato, pones el canal de: Anime (A), Musica Pop (M), Limpieza (L): ");
@@ -118,8 +121,8 @@ void elegir_canal(char* canal){
 }
 
 /*
-.Pre:-
-.Post: Guarda en la variable "alimento" la opcion elegida por el usuario
+.Pre: -
+.Post: Guarda en la variable "alimento" la opcion elegida por el usuario la cual debe ser un caracter valido entre 'B', 'P', 'F'
 */
 void elegir_alimento(char* alimento){
     printf("Solo podes guardar un alimento en tu vianda: Bambú (B), Pescado (P), Focas (F): ");
@@ -128,8 +131,8 @@ void elegir_alimento(char* alimento){
 }
 
 /*
-.Pre:-
-.Post: Guarda en la variable "piso" la opcion elegida por el usuario
+.Pre: -
+.Post: Guarda en la variable "piso" la opcion elegida por el usuario la cual debe ser un numero entero valido entre 1 y 18
 */
 void elegir_piso(int* piso){
     printf("Te compras una torre con tus dos hermanos de 18 pisos. ¿En que piso te gustaría vivir?: ");
@@ -138,8 +141,8 @@ void elegir_piso(int* piso){
 }
 
 /*
-.Pre:-
-.Post: Guarda en la variable "grito" la opcion elegida por el usuario
+.Pre: -
+.Post: Guarda en la variable "grito" la opcion elegida por el usuario la cual debe ser un numero entero valido entre 1 y 18
 */
 void elegir_nivel_de_grito(int* grito){
     printf("¡Oh, una rata! ¿Que tan fuerte gritas del 1 al 18? Siendo 1 no gritar y 18 desgarrarse la garganta: ");
